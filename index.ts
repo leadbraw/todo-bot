@@ -2,13 +2,21 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { Sequelize } from 'sequelize';
 import { Client, Collection, Events, GatewayIntentBits, MessageFlags } from 'discord.js';
 import { token } from './config.json';
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-client.commands= new Collection();
+// Define connection info
+const sequelize = new Sequelize(' ', 'root', '', {
+    host: 'localhost',
+    dialect: 'mariadb',
+    logging: false
+});
+
+client.commands = new Collection();
 
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
