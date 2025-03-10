@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
 
-export default {
+module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('marco')
 		.setDescription('Replies with Polo!'),
