@@ -3,8 +3,9 @@ import { SlashCommandBuilder } from 'discord.js';
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Replies with Pong!'),
+		.setDescription('Gives the bot\'s ping'),
 	async execute(interaction) {
-		await interaction.reply('Pong!');
+		const sent = await interaction.reply('Pong!');
+        interaction.editReply(`Pong!\nWebsocket heartbeat: ${interaction.client.ws.ping} ms\nRoundtrip latency: ${sent.createdTimestamp - interaction.createdTimestamp} ms`)
 	},
 };
