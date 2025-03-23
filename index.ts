@@ -29,15 +29,15 @@ const Todo = sequelize.define('todo', {
 
 client.commands = new Collection();
 
-const foldersPath = path.join(__dirname, 'commands');
-const commandFolders = fs.readdirSync(foldersPath);
+const foldersPath: string = path.join(__dirname, 'commands');
+const commandFolders: string[] = fs.readdirSync(foldersPath);
 
 // Load all commands
 for (const folder of commandFolders) {
-	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
+	const commandsPath: string = path.join(foldersPath, folder);
+	const commandFiles: string[] = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
 	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file);
+		const filePath: string = path.join(commandsPath, file);
 		const command = require(filePath);
 		// Set a new item in the Collection with the key as the command name and the value as the exported module
 		if ('data' in command && 'execute' in command) {
@@ -49,11 +49,11 @@ for (const folder of commandFolders) {
 }
 
 //  Load all event handlers
-const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
+const eventsPath: string = path.join(__dirname, 'events');
+const eventFiles: string[] = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
 
 for (const file of eventFiles) {
-	const filePath = path.join(eventsPath, file);
+	const filePath: string = path.join(eventsPath, file);
 	const event = require(filePath);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));

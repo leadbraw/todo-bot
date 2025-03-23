@@ -14,8 +14,8 @@ module.exports = {
                 .setDescription('The description of the todo item.')
                 .setRequired(true)),
 	async execute(interaction) {
-        const todoName = interaction.options.getString('name');
-		const todoDescription = interaction.options.getString('description');
+        const todoName: string = interaction.options.getString('name');
+		const todoDescription: string = interaction.options.getString('description');
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
 			const todo = await Todo.create({

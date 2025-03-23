@@ -10,7 +10,7 @@ module.exports = {
                 .setDescription('The name of the todo item.')
                 .setRequired(true)),
 	async execute(interaction) {
-        const todoName = interaction.options.getString('name');
+        const todoName: string = interaction.options.getString('name');
         // equivalent to: SELECT * FROM tags WHERE name = 'tagName' LIMIT 1;
         const todo = await Todo.findOne({ where: { name: todoName } });
         if (todo) {

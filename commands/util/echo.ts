@@ -14,7 +14,7 @@ module.exports = {
                 .setRequired(false)),
 	async execute(interaction) {
         const ephemeralValue: boolean = interaction.options.getBoolean('ephemeral') ?? true;
-        const inputMessage: String = interaction.options.getString('input');
+        const inputMessage: string = interaction.options.getString('input');
 		await interaction.reply({content: inputMessage, flags: ephemeralValue ? MessageFlags.Ephemeral : undefined});
 	},
 };
