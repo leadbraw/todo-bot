@@ -2,7 +2,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { Sequelize } from 'sequelize';
+import { Sequelize, DataTypes } from 'sequelize';
 import { Client, Collection, Events, GatewayIntentBits, MessageFlags } from 'discord.js';
 import { token } from './config.json';
 
@@ -10,10 +10,21 @@ import { token } from './config.json';
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 // Define connection info
-const sequelize = new Sequelize(' ', 'root', '', {
+const sequelize = new Sequelize('bott', 'root', '', {
     host: 'localhost',
+    port: 3307,
     dialect: 'mariadb',
     logging: false
+});
+
+// Make todo item table. TODO: move this out.
+const Todo = sequelize.define('todo', {
+    name: {
+        type: DataTypes.STRING,
+        unique: true,
+    },
+    description: DataTypes.TEXT,
+    username: DataTypes.STRING
 });
 
 client.commands = new Collection();
@@ -51,5 +62,9 @@ for (const file of eventFiles) {
 	}
 }
 
+// Sync Todo table on startup. It's possible this should go in ./events/ready.ts, but whatever.
+Todo.sync()
 // Log in to Discord with your client's token
 client.login(token);
+
+export { sequelize, Todo };
