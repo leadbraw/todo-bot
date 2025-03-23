@@ -1,5 +1,5 @@
 import { MessageFlags, SlashCommandBuilder } from 'discord.js';
-import { Todo, sequelize } from '../../index.ts'
+import { Todo } from '../../index.ts'
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -23,7 +23,7 @@ module.exports = {
 				description: todoDescription,
 				username: interaction.user.username,
 			});
-			return interaction.reply(`Tag added.`);
+			return interaction.reply(`Item added.`);
 		}
 		catch (error) {
 			if (error.name === 'SequelizeUniqueConstraintError') {
