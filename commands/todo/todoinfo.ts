@@ -11,7 +11,7 @@ module.exports = {
                 .setRequired(true)),
 	async execute(interaction) {
         const todoName = interaction.options.getString('name');
-        // equivalent to: SELECT * FROM tags WHERE name = 'tagName' LIMIT 1;
+        // equivalent to: SELECT * FROM todo WHERE name = 'todoName' LIMIT 1;
         const todo = await Todo.findOne({ where: { name: todoName } });
         if (todo) {
             return interaction.reply(`${todoName} was created by ${todo.username} at ${todo.createdAt}`);

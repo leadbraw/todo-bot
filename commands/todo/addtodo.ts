@@ -17,7 +17,7 @@ module.exports = {
         const todoName: string = interaction.options.getString('name');
 		const todoDescription: string = interaction.options.getString('description');
 		try {
-			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
+			// equivalent to: INSERT INTO todo (name, description, username) values (?, ?, ?);
 			const todo = await Todo.create({
 				name: todoName,
 				description: todoDescription,

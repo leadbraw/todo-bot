@@ -16,7 +16,7 @@ module.exports = {
 	async execute(interaction) {
         const todoName: string = interaction.options.getString('name');
         const todoDescription: string = interaction.options.getString('description');
-        // equivalent to: UPDATE tags (description) values (?) WHERE name='?';
+        // equivalent to: UPDATE todo (description) values (?) WHERE name='?';
         const affectedRows: number = await Todo.update({ description: todoDescription }, { where: { name: todoName } });
         if (affectedRows) {
             return interaction.reply(`Item ${todoName} was edited.`);
