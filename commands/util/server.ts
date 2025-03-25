@@ -11,19 +11,21 @@ module.exports = {
             .setTitle(interaction.guild.name)
             .setURL('https://github.com/leadbraw')
             .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL() })
-            .setDescription('Some description here')
+            // TODO: make this line shorter :v
+            .setDescription(`Creation date: <t:${Math.floor(interaction.guild.createdAt.getTime() / 1000)}:D> (<t:${Math.floor(interaction.guild.createdAt.getTime() / 1000)}:R>)`)
             .setThumbnail(interaction.guild.iconURL())
             .addFields(
-                { name: 'Regular field title', value: 'Some value here' },
-                { name: '\u200B', value: '\u200B' }, // adding space
-                { name: 'Member count', value: `${interaction.guild.memberCount}`, inline: true },
-                { name: 'Channel count', value: `${interaction.guild.channels.channelCountWithoutThreads}`, inline: true },
-                { name: 'Creation date', value: `${interaction.guild.createdAt.toDateString()}`}
+                // first row
+                { name: 'Owner', value: `<@${interaction.guild.ownerId}>`, inline: true },
+                { name: 'Members', value: `${interaction.guild.memberCount}`, inline: true },
+                { name: 'Channels', value: `${interaction.guild.channels.channelCountWithoutThreads}`, inline: true},
+                // second row
+                { name: 'Design', value: `Icon: Click [here](${interaction.guild.iconURL()})`, inline: true},
+                { name: 'Info', value: `${interaction.guild.channels.channelCountWithoutThreads}`, inline: true},
+                { name: 'Counts', value: `${interaction.guild.channels.channelCountWithoutThreads}`, inline: true}
             )
             .setTimestamp()
-            .setFooter({ text: interaction.user.username, iconURL: interaction.user.avatarURL() });
-        channel.send({ embeds: [serverEmbed] });
-		// interaction.guild is the object representing the Guild in which the command was run
-		await interaction.reply(`This server is ${interaction.guild.name} and has ${interaction.guild.memberCount} members.`);
-	},
+            .setFooter({ text: `Guild ID: ${interaction.guild.id}` });
+        interaction.reply({ embeds: [serverEmbed] });
+	}
 };
