@@ -6,10 +6,6 @@ module.exports = {
 		.setDescription('Provides information about the server.'),
 	async execute(interaction) {
         const channel: GuildTextBasedChannel = interaction.channel;
-        let roleCount: number = 0;
-        interaction.guild.roles.fetch()
-            .then(roles => roleCount = roles.size)
-            .catch(console.error);
         const serverEmbed = new EmbedBuilder()
             .setColor(0x0099FF)
             .setTitle(interaction.guild.name)
@@ -27,7 +23,8 @@ module.exports = {
                 { name: 'Design', value: `Icon: [Click here](${interaction.guild.iconURL()})`, inline: true},
                 { name: 'Info', value: `Verification: ${interaction.guild.verificationLevel}
                                         Boosts: ${interaction.guild.premiumSubscriptionCount}`, inline: true},
-                { name: 'Counts', value: `Roles: ${roleCount}`, inline: true}
+                { name: 'Counts', value: `Roles: ${interaction.guild.roles.cache.size}
+                                          Emojis: ${interaction.guild.emojis.cache.size}`, inline: true}
             )
             .setTimestamp()
             .setFooter({ text: `Guild ID: ${interaction.guild.id}` });

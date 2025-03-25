@@ -1,6 +1,6 @@
 import { Collection } from "discord.js";
 
-// Now Client has a 'commands' property! Woohoo!
+// Made to satisfy my IDE. Now client has a commands property.
 declare module "discord.js" {
     export interface Client {
         commands: Collection<unknown, any>
