@@ -1,4 +1,4 @@
-import { EmbedBuilder, Guild, GuildTextBasedChannel, SlashCommandBuilder, TextBasedChannel } from 'discord.js';
+import { EmbedBuilder, Guild, GuildTextBasedChannel, SlashCommandBuilder } from 'discord.js';
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -10,7 +10,6 @@ module.exports = {
         const serverEmbed = new EmbedBuilder()
             .setColor(0x0099FF)
             .setTitle(guild.name)
-            .setURL('https://github.com/leadbraw')
             .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL() })
             // TODO: Make this line shorter. Displays creation date via discord timestamps.
             .setDescription(`Creation date: <t:${Math.floor(guild.createdAt.getTime() / 1000)}:D> (<t:${Math.floor(guild.createdAt.getTime() / 1000)}:R>)`)
