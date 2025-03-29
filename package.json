@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "discord.js": "^14.18.0",
+    "export-to-csv": "^1.4.0",
     "mariadb": "^3.4.0",
     "sequelize": "^6.37.6",
     "typescript": "^5.8.2"
