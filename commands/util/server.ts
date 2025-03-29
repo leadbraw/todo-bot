@@ -21,10 +21,8 @@ module.exports = {
                 { name: 'Channels', value: `${guild.channels.channelCountWithoutThreads}`, inline: true},
                 // second row
                 { name: 'Design', value: `Icon: [Click here](${guild.iconURL()})`, inline: true},
-                { name: 'Info', value: `Verification: ${guild.verificationLevel}
-                                        Boosts: ${guild.premiumSubscriptionCount}`, inline: true},
-                { name: 'Counts', value: `Roles: ${guild.roles.cache.size}
-                                          Emojis: ${guild.emojis.cache.size}`, inline: true}
+                { name: 'Info', value: `Verification: ${guild.verificationLevel}\nBoosts: ${guild.premiumSubscriptionCount}`, inline: true},
+                { name: 'Counts', value: `Roles: ${guild.roles.cache.size}\nEmojis: ${guild.emojis.cache.size}`, inline: true}
             )
             .setTimestamp()
             .setFooter({ text: `Guild ID: ${guild.id}` });
