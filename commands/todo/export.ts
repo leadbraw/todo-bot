@@ -1,8 +1,9 @@
-import { AttachmentBuilder, MessageFlags, SlashCommandBuilder } from 'discord.js';
+import { MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { mkConfig, generateCsv, asString } from "export-to-csv";
 import { writeFile } from "node:fs";
 import { Buffer } from "node:buffer";
-import { Todo } from '../../index.ts'
+import { Todo } from '../../index.ts';
+import * as fs from 'fs';
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -29,6 +30,16 @@ module.exports = {
         });
 
         // Reply with data!
-        interaction.reply({ content: 'Here is your data!', files: [`..\\todo-bot\\${filename}`] });
+        interaction.reply({ content: 'Here is your data!', files: [`..\\todo-bot\\${filename}`] })
+            .then(
+                // Delete file off disk afterwards.
+                fs.unlink(`..\\todo-bot\\${filename}`, (err) => {
+                    if (err) {
+                        console.error(`Error deleting: ${err.message}`);
+                    } else {
+                        console.log('Deletion successful.');
+                    }
+                })
+            );
     }
 }
