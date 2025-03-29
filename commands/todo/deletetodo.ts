@@ -14,8 +14,8 @@ module.exports = {
         // equivalent to: DELETE from todo WHERE name = ?;
         const rowCount = await Todo.destroy({ where: { name: todoName } });
         if (!rowCount) {
-            return interaction.reply('That item doesn\'t exist.');
+            return interaction.reply({content: 'That item doesn\'t exist.', flags: MessageFlags.Ephemeral});
         }
-        return interaction.reply('Todo item deleted.');
+        return interaction.reply({content: 'Todo item deleted.', flags: MessageFlags.Ephemeral});
     }
 };

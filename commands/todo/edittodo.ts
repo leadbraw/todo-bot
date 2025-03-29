@@ -19,7 +19,7 @@ module.exports = {
         // equivalent to: UPDATE todo (description) values (?) WHERE name='?';
         const affectedRows: number = await Todo.update({ description: todoDescription }, { where: { name: todoName } });
         if (affectedRows) {
-            return interaction.reply(`Item ${todoName} was edited.`);
+            return interaction.reply({content: `Item ${todoName} was edited.`, flags: MessageFlags.Ephemeral});
         }
         return interaction.reply({content: `Could not find a tag with name ${todoName}!`, flags: MessageFlags.Ephemeral});
     }

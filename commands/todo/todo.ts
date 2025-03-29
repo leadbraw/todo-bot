@@ -1,5 +1,5 @@
 import { MessageFlags, SlashCommandBuilder } from 'discord.js';
-import { Todo, sequelize } from '../../index.ts'
+import { Todo } from '../../index.ts'
 
 module.exports = {
 	data: new SlashCommandBuilder()

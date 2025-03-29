@@ -14,7 +14,7 @@ module.exports = {
             for (const todo of todoList) {
                 todoString += `${todo.name}, ${todo.description}\n`
             }
-            return interaction.reply(`List of items:\n${todoString}`);
+            return interaction.reply({content: `List of items:\n${todoString}`, flags: MessageFlags.Ephemeral});
         }
         return interaction.reply({content: 'You have no todo items!', flags: MessageFlags.Ephemeral});
     }

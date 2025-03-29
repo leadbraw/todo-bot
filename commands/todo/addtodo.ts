@@ -23,7 +23,7 @@ module.exports = {
 				description: todoDescription,
 				username: interaction.user.username,
 			});
-			return interaction.reply(`Item added.`);
+			return interaction.reply({content: `Item added.`, flags: MessageFlags.Ephemeral});
 		}
 		catch (error) {
 			if (error.name === 'SequelizeUniqueConstraintError') {
