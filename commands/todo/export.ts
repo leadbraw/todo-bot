@@ -18,7 +18,7 @@ module.exports = {
         const stringified: string = JSON.stringify(todoList);
         const todoJSON = JSON.parse(stringified);
         
-        // Make csv file.
+        // Make csv file. Default filename is generated.csv
         const csv = generateCsv(csvConfig)(todoJSON);
         const filename = `${csvConfig.filename}.csv`;
         const csvBuffer = new Uint8Array(Buffer.from(asString(csv)));
@@ -30,16 +30,15 @@ module.exports = {
         });
 
         // Reply with data!
-        interaction.reply({ content: 'Here is your data!', files: [`..\\todo-bot\\${filename}`], flags: MessageFlags.Ephemeral })
-            .then(
-                // Delete file off disk afterwards.
-                fs.unlink(`..\\todo-bot\\${filename}`, (err) => {
-                    if (err) {
-                        console.error(`Error deleting: ${err.message}`);
-                    } else {
-                        console.log('Deletion successful.');
-                    }
-                })
-            );
+        await interaction.reply({ content: 'Here is your data!', files: [`..\\todo-bot\\${filename}`], flags: MessageFlags.Ephemeral })
+        
+        // Delete file off disk afterwards.
+        fs.unlink(`..\\todo-bot\\${filename}`, (err) => {
+            if (err) {
+                console.error(`Error deleting: ${err.message}`);
+            } else {
+                console.log('Deletion successful.');
+            }
+        })
     }
 }
