@@ -30,7 +30,7 @@ module.exports = {
         });
 
         // Reply with data!
-        interaction.reply({ content: 'Here is your data!', files: [`..\\todo-bot\\${filename}`] })
+        interaction.reply({ content: 'Here is your data!', files: [`..\\todo-bot\\${filename}`], flags: MessageFlags.Ephemeral })
             .then(
                 // Delete file off disk afterwards.
                 fs.unlink(`..\\todo-bot\\${filename}`, (err) => {
