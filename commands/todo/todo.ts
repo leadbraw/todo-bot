@@ -18,8 +18,8 @@ module.exports = {
         // equivalent to: SELECT * FROM todo WHERE name = 'todoName' LIMIT 1;
         const todo = await Todo.findOne({ where: { name: todoName } });
         if (todo) {
-            return interaction.reply(todo.get('description'));
+            return interaction.reply({content: `${todo.get('description')}`, flags: MessageFlags.Ephemeral});
         }
-        return interaction.reply(`Could not find item '${todoName}'`);
+        return interaction.reply({content: `Could not find item '${todoName}'`, flags: MessageFlags.Ephemeral});
 	}
 };
