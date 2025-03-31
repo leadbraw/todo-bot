@@ -1,11 +1,11 @@
-import { MessageFlags, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { Todo } from '../../index.ts'
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('showtodos')
 		.setDescription('Show all of your todo items.'),
-	async execute(interaction) {
+	async execute(interaction: ChatInputCommandInteraction) {
         const username = interaction.user.username;
         // Fetches the name and description of all items created by the user.
         const todoList = await Todo.findAll({ attributes: ['name', 'description'],  where: { username: username } });

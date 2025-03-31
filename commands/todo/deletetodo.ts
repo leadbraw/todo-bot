@@ -1,4 +1,4 @@
-import { MessageFlags, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { Todo } from '../../index.ts'
 
 module.exports = {
@@ -9,8 +9,8 @@ module.exports = {
             option.setName('name')
                 .setDescription('The name of the todo item.')
                 .setRequired(true)),
-	async execute(interaction) {
-        const todoName: string = interaction.options.getString('name');
+	async execute(interaction: ChatInputCommandInteraction) {
+        const todoName: string | null = interaction.options.getString('name');
         // equivalent to: DELETE from todo WHERE name = ?;
         const rowCount = await Todo.destroy({ where: { name: todoName } });
         if (!rowCount) {

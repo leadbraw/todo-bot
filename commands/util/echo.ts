@@ -1,4 +1,4 @@
-import { MessageFlags, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -12,9 +12,12 @@ module.exports = {
             option.setName('ephemeral')
                 .setDescription('Whether the output should be ephemeral. True by default.')
                 .setRequired(false)),
-	async execute(interaction) {
+	async execute(interaction: ChatInputCommandInteraction) {
         const ephemeralValue: boolean = interaction.options.getBoolean('ephemeral') ?? true;
-        const inputMessage: string = interaction.options.getString('input');
+        let inputMessage: string | null = interaction.options.getString('input');
+        if (inputMessage === null) {
+            inputMessage = "";
+        }
 		await interaction.reply({content: inputMessage, flags: ephemeralValue ? MessageFlags.Ephemeral : undefined});
 	},
 };

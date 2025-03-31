@@ -1,4 +1,4 @@
-import { MessageFlags, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { mkConfig, generateCsv, asString } from "export-to-csv";
 import { writeFile } from "node:fs";
 import { Buffer } from "node:buffer";
@@ -9,7 +9,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('export')
 		.setDescription('Export all todo items as a .csv file.'),
-	async execute(interaction) {
+	async execute(interaction: ChatInputCommandInteraction) {
         const csvConfig = mkConfig({ useKeysAsHeaders: true });
 		const username = interaction.user.username;
 

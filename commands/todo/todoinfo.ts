@@ -1,4 +1,4 @@
-import { MessageFlags, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { Todo } from '../../index.ts'
 
 module.exports = {
@@ -9,13 +9,13 @@ module.exports = {
             option.setName('name')
                 .setDescription('The name of the todo item.')
                 .setRequired(true)),
-	async execute(interaction) {
+	async execute(interaction: ChatInputCommandInteraction) {
         const todoName = interaction.options.getString('name');
         // equivalent to: SELECT * FROM todo WHERE name = 'todoName' LIMIT 1;
         const todo = await Todo.findOne({ where: { name: todoName } });
         if (todo) {
             return interaction.reply(`${todoName} was created by ${todo.username} at ${todo.createdAt}`);
         }
-        return interaction.reply(`Could not find item: ${todoName}`);
+        return interaction.reply({content: `Could not find item: ${todoName}`, flags: MessageFlags.Ephemeral});
     }
 };

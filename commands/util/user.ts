@@ -1,12 +1,16 @@
-import { EmbedBuilder, Guild, GuildTextBasedChannel, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, Guild, SlashCommandBuilder, TextBasedChannel } from 'discord.js';
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('user')
 		.setDescription('Provides information about the user.'),
-	async execute(interaction) {
-        const channel: GuildTextBasedChannel = interaction.channel;
-        const guild: Guild = interaction.guild;
+	async execute(interaction: ChatInputCommandInteraction) {
+        const channel: TextBasedChannel | null = interaction.channel;
+        const guild: Guild | null = interaction.guild;
+        if (channel === null || guild === null) {
+            interaction.reply('An unexpected issue has occured. Please retry the command.');
+            return;
+        }
         const serverEmbed = new EmbedBuilder()
             .setColor(0x0099FF)
             .setTitle(interaction.user.username)

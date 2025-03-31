@@ -1,4 +1,4 @@
-import { MessageFlags, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { Todo } from '../../index.ts'
 
 module.exports = {
@@ -13,11 +13,11 @@ module.exports = {
             option.setName('description')
                 .setDescription('The new description of the todo item.')
                 .setRequired(true)),
-	async execute(interaction) {
-        const todoName: string = interaction.options.getString('name');
-        const todoDescription: string = interaction.options.getString('description');
+	async execute(interaction: ChatInputCommandInteraction) {
+        const todoName: string | null = interaction.options.getString('name');
+        const todoDescription: string | null = interaction.options.getString('description');
         // equivalent to: UPDATE todo (description) values (?) WHERE name='?';
-        const affectedRows: number = await Todo.update({ description: todoDescription }, { where: { name: todoName } });
+        const affectedRows: [AffectedCount: number] = await Todo.update({ description: todoDescription }, { where: { name: todoName } });
         if (affectedRows) {
             return interaction.reply({content: `Item ${todoName} was edited.`, flags: MessageFlags.Ephemeral});
         }
