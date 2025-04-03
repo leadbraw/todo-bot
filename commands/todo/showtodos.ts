@@ -20,6 +20,7 @@ module.exports = {
             }
 
             // TODO: find a way to have ephemeral embeds for todo item privacy.
+            // TODO: Enable going from embed to embed.
             pagination.setEmbeds(embeds);
             pagination.render();
         }
