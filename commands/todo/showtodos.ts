@@ -1,4 +1,5 @@
-import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, MessageFlags, SlashCommandBuilder } from 'discord.js';
+import { Pagination } from 'pagination.djs';
 import { Todo } from '../../index.ts'
 
 module.exports = {
@@ -10,11 +11,16 @@ module.exports = {
         // Fetches the name and description of all items created by the user.
         const todoList = await Todo.findAll({ attributes: ['name', 'description'],  where: { username: username } });
         if (todoList && todoList.length) {
-            let todoString: string = '';
+            const pagination = new Pagination(interaction);
+            const embeds: EmbedBuilder[] = [];
+
             for (const todo of todoList) {
-                todoString += `${todo.name}, ${todo.description}\n`
+                const embed = new EmbedBuilder().setTitle(`${todo.name}`).setDescription(`${todo.description}`);
+                embeds.push(embed);
             }
-            return interaction.reply({content: `List of items:\n${todoString}`, flags: MessageFlags.Ephemeral});
+
+            pagination.setEmbeds(embeds);
+            pagination.render();
         }
         return interaction.reply({content: 'You have no todo items!', flags: MessageFlags.Ephemeral});
     }
