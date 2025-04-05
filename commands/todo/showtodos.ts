@@ -23,9 +23,11 @@ module.exports = {
                 embeds.push(embed);
             }
 
-            // TODO: find a way to preserve todo item privacy.
+            // Add embeds and respond to user in DMs.
             pagination.setEmbeds(embeds);
-            await pagination.render();
+            const payloads = pagination.ready();
+            const message = await interaction.user.send(payloads);
+            pagination.paginate(message);
         } else {
             await interaction.reply({content: 'You have no todo items!', flags: MessageFlags.Ephemeral});
         }
