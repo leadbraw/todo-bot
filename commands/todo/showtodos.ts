@@ -5,7 +5,7 @@ import { Todo } from '../../index.ts'
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('showtodos')
-		.setDescription('Show all of your todo items.'),
+		.setDescription('Show all of your todo items in your DMs.'),
 	async execute(interaction: ChatInputCommandInteraction) {
         const username = interaction.user.username;
         // Fetches the name, description, and creation date of all items created by the user.
@@ -27,6 +27,7 @@ module.exports = {
             pagination.setEmbeds(embeds);
             const payloads = pagination.ready();
             const message = await interaction.user.send(payloads);
+            interaction.reply({ content: 'Sent your todo items in your DMs!', flags: MessageFlags.Ephemeral })
             pagination.paginate(message);
         } else {
             await interaction.reply({content: 'You have no todo items!', flags: MessageFlags.Ephemeral});
