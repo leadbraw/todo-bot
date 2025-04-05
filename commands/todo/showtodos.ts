@@ -18,7 +18,8 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle(`${todo.name}`)
                     .setDescription(`${todo.description}`)
-                    .setFooter({ text: `Created ${todo.createdAt.toDateString()}` });
+                    .setFooter({ text: `Created ${todo.createdAt.toDateString()}` })
+                    .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL() });
                 embeds.push(embed);
             }
 
